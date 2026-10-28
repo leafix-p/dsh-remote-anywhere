@@ -40,7 +40,7 @@
 | 插件回退 | 本地插件集在远端安装/加载失败时，自动回退到「基础插件集 + 模型配置」，不让远端 dsh 起不来 |
 | 本地嵌入 | SSH 用 ssh2 的 `forwardOut` 建一条本地随机端口隧道；WSL2 走 localhost 转发；远端 GUI 以 iframe 嵌入本地页面 |
 | 连接日志 | 连接中/失败页自动显示实时日志（步骤、环境探测、安装与同步消息，token 已脱敏），可一键复制 |
-| 本地打开 | 就绪后顶部「VS Code / 终端 / 文件」可直接打开：VS Code 以 Remote-SSH / Remote-WSL 状态打开远端目录，Windows Terminal 打开远端终端，WSL 目录可在资源管理器打开 |
+| 本地打开 | 目标卡片可直接「VS Code / 终端 / 文件」打开（自动使用远端 home）；连接就绪后顶部也可以对当前工作区执行同样操作 |
 | 主机编辑 | 添加/编辑/删除 SSH 主机，密码与口令用 `$DSH_HOME/dsh-ssh.key` 做 AES-256-GCM 加密，与 dsh-ssh-workspace 兼容 |
 | 目录浏览 | 连接前逐级浏览远端目录（SFTP 或 WSL 9P） |
 | Agent 工具 | `remote_anywhere_targets` / `remote_anywhere_connect` / `remote_anywhere_status` / `remote_anywhere_disconnect` |
@@ -95,7 +95,7 @@ dsh plugin --profile web add dsh-remote-anywhere
 3. 在目录浏览器里选远端目录（默认是远端 home），按需勾选同步项，点「连接并打开」。
 4. 进度页会显示：连接 → 检查环境 → 确认目录 → 准备 dsh → 同步配置 → 打开目录 → 启动 dsh → 建立本地访问。
 5. 就绪后远端 dsh 的完整界面会嵌入主区域；也可以点「新标签页」单独打开。
-6. 顶部「VS Code / 终端 / 文件」可直接打开本地窗口：VS Code 会以对应的 Remote-SSH / Remote-WSL 状态打开，远端终端和文件资源管理器随即可用。
+6. 顶部「VS Code / 终端 / 文件」可直接打开本地窗口：VS Code 会以对应的 Remote-SSH / Remote-WSL 状态打开，远端终端和文件资源管理器随即可用。目标卡片上也有同名的直接入口，不需要先启动远端 dsh。
 7. 右上角「断开」会停掉远端 dsh 并关闭本地隧道；连接中/失败页会自动显示可复制的实时日志，连接成功后可用顶部「日志」展开。
 
 ### 添加 SSH 主机

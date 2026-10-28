@@ -47,7 +47,7 @@ interface and reached through an SSH tunnel or WSL localhost forwarding.
 | Plugin fallback | If the remote plugin install/load fails, falls back to the base plugin set plus model configuration instead of failing to boot |
 | Embedded GUI | SSH: ssh2 `forwardOut` tunnel; WSL2: localhost forwarding; the remote page is embedded in the local window |
 | Live log | Progress and error views show a live, copyable log with launch tokens masked |
-| Local launch | Once ready, open the remote folder in VS Code (Remote-SSH / Remote-WSL), open a remote terminal in Windows Terminal, or open a WSL directory in Explorer |
+| Local launch | Open a target directly from its card in VS Code, a terminal, or Explorer (remote home by default); the ready connection bar offers the same actions for the chosen workspace |
 | Host editor | Add / edit / delete SSH hosts; passwords and passphrases are AES-256-GCM encrypted under `$DSH_HOME/dsh-ssh.key` |
 | Agent tools | `remote_anywhere_targets`, `remote_anywhere_connect`, `remote_anywhere_status`, `remote_anywhere_disconnect` |
 
@@ -113,7 +113,8 @@ patch).
    new tab** is available too.
 6. Use **VS Code / Terminal / File** in the top bar: VS Code opens the remote
    folder already connected over Remote-SSH or Remote-WSL, Windows Terminal
-   opens a remote shell, and WSL folders open in Explorer.
+   opens a remote shell, and WSL folders open in Explorer. The same actions
+   are available directly on each target card (remote home by default).
 7. **Disconnect** stops the remote dsh and closes the tunnel. The live log is
    available on the progress/error view and from the **Log** button once ready.
 

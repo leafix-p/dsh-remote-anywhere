@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.1 — 2026-10-28
+
+- Add **VS Code**, **Terminal** and **File** actions directly on target cards,
+  so a target can be opened without starting the remote dsh first.
+- Resolve the remote home automatically when a direct target action has no
+  explicit path.
+- Fix a misleading empty action row on the progress screen.
+
 ## 0.2.0 — 2026-10-28
 
 - Add **VS Code**, **Terminal** and **File** actions for ready connections:

@@ -1,6 +1,6 @@
 {
   "name": "dsh-remote-anywhere",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "SSH and WSL remote development for DeepSeek Harness: install and run dsh on the remote host, sync model / plugin / skill configuration, and embed the remote GUI in the local window.",
   "type": "module",
   "main": "lib/index.js",
@@ -71,4 +71,5 @@
     "access": "public"
   }
 }
+
 
