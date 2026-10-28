@@ -40,6 +40,7 @@
 | 插件回退 | 本地插件集在远端安装/加载失败时，自动回退到「基础插件集 + 模型配置」，不让远端 dsh 起不来 |
 | 本地嵌入 | SSH 用 ssh2 的 `forwardOut` 建一条本地随机端口隧道；WSL2 走 localhost 转发；远端 GUI 以 iframe 嵌入本地页面 |
 | 连接日志 | 连接中/失败页自动显示实时日志（步骤、环境探测、安装与同步消息，token 已脱敏），可一键复制 |
+| 本地打开 | 就绪后顶部「VS Code / 终端 / 文件」可直接打开：VS Code 以 Remote-SSH / Remote-WSL 状态打开远端目录，Windows Terminal 打开远端终端，WSL 目录可在资源管理器打开 |
 | 主机编辑 | 添加/编辑/删除 SSH 主机，密码与口令用 `$DSH_HOME/dsh-ssh.key` 做 AES-256-GCM 加密，与 dsh-ssh-workspace 兼容 |
 | 目录浏览 | 连接前逐级浏览远端目录（SFTP 或 WSL 9P） |
 | Agent 工具 | `remote_anywhere_targets` / `remote_anywhere_connect` / `remote_anywhere_status` / `remote_anywhere_disconnect` |
@@ -51,6 +52,8 @@
 - SSH 主机需要可从本机直连（**暂不支持 ProxyJump / ProxyCommand**）。
 - WSL 需要 WSL2 的 localhost 转发（默认开启）。WSL1 也可用，只要端口能从 Windows 访问。
 - 首次连接会下载 dsh 依赖并复制本地插件集，可能需要 1–3 分钟，取决于网络和 npm 缓存。
+- 「VS Code」按钮需要本机安装 VS Code 及 **Remote-SSH / Remote-WSL** 扩展；「终端」需要 Windows Terminal（`wt.exe`）。
+- 「文件」按钮只在 WSL 目标上出现；SSH 目标请用 VS Code，Windows 资源管理器不能直接浏览 SSH 文件。
 
 ## 安装
 
@@ -92,7 +95,8 @@ dsh plugin --profile web add dsh-remote-anywhere
 3. 在目录浏览器里选远端目录（默认是远端 home），按需勾选同步项，点「连接并打开」。
 4. 进度页会显示：连接 → 检查环境 → 确认目录 → 准备 dsh → 同步配置 → 打开目录 → 启动 dsh → 建立本地访问。
 5. 就绪后远端 dsh 的完整界面会嵌入主区域；也可以点「新标签页」单独打开。
-6. 右上角「断开」会停掉远端 dsh 并关闭本地隧道；连接中/失败页会自动显示可复制的实时日志，连接成功后可用顶部「日志」展开。
+6. 顶部「VS Code / 终端 / 文件」可直接打开本地窗口：VS Code 会以对应的 Remote-SSH / Remote-WSL 状态打开，远端终端和文件资源管理器随即可用。
+7. 右上角「断开」会停掉远端 dsh 并关闭本地隧道；连接中/失败页会自动显示可复制的实时日志，连接成功后可用顶部「日志」展开。
 
 ### 添加 SSH 主机
 
@@ -161,6 +165,7 @@ dsh-remote-anywhere/
   lib/ssh.js            # ssh2 transport（exec / sftp / forward）
   lib/wsl.js            # wsl.exe + UNC transport
   lib/sync.js           # 安装 dsh、同步配置、注册 workspace、启动远端 dsh
+  lib/launcher.js       # VS Code / 终端 / 资源管理器本地启动
   lib/routes.js         # 本地 HTTP API
   lib/tools.js          # Agent 工具
   lib/client.js         # 浏览器半（无构建步骤）
@@ -179,6 +184,8 @@ dsh-remote-anywhere/
 - **远端 dsh 不随本地热重载更新**：改了本地配置后需「断开 → 重新连接」让远端进程读到新配置。
 - **不自动更新远端 dsh**：版本默认跟随本地；改版本可在设置里填具体版本，下次连接会重装。
 - **本地接口只接受 loopback 访问**：如果 DSH Web GUI 通过反向代理/公网域名打开，远程资源管理器的 API 会拒绝（403）；请在本机 `127.0.0.1` / `localhost` 打开 GUI。
+- **VS Code Remote-SSH 的非 22 端口**需要 `~/.ssh/config` 里有对应的 Host 别名（HostName / User / Port）；插件会明确提示。
+- **Windows 资源管理器不能浏览 SSH 文件**：SSH 目标请用 VS Code 打开，它的左侧就是远端资源管理器。
 
 ## 排查
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.0 — 2026-10-28
+
+- Add **VS Code**, **Terminal** and **File** actions for ready connections:
+  Remote-SSH / Remote-WSL folder open, Windows Terminal remote shell, and WSL
+  Explorer.
+- Discover WSL distributions from the per-user Lxss registry, so the target
+  list appears instantly even when `wsl.exe -l -q` is slow.
+- Add English README and clearer positioning against `dsh-ssh-workspace`.
+
 ## 0.1.0 — 2026-10-28
 
 Initial open-source release.

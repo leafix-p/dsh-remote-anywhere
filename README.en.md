@@ -47,6 +47,7 @@ interface and reached through an SSH tunnel or WSL localhost forwarding.
 | Plugin fallback | If the remote plugin install/load fails, falls back to the base plugin set plus model configuration instead of failing to boot |
 | Embedded GUI | SSH: ssh2 `forwardOut` tunnel; WSL2: localhost forwarding; the remote page is embedded in the local window |
 | Live log | Progress and error views show a live, copyable log with launch tokens masked |
+| Local launch | Once ready, open the remote folder in VS Code (Remote-SSH / Remote-WSL), open a remote terminal in Windows Terminal, or open a WSL directory in Explorer |
 | Host editor | Add / edit / delete SSH hosts; passwords and passphrases are AES-256-GCM encrypted under `$DSH_HOME/dsh-ssh.key` |
 | Agent tools | `remote_anywhere_targets`, `remote_anywhere_connect`, `remote_anywhere_status`, `remote_anywhere_disconnect` |
 
@@ -61,6 +62,10 @@ interface and reached through an SSH tunnel or WSL localhost forwarding.
   the port is reachable from Windows.
 - The first connection installs dsh and optionally the local plugin set; expect
   one to three minutes depending on npm cache and network.
+- The **VS Code** action requires VS Code with the **Remote-SSH** and
+  **Remote-WSL** extensions. The **Terminal** action requires Windows Terminal
+  (`wt.exe`). The **File** action is WSL-only; Windows Explorer cannot browse
+  an SSH host directly.
 
 ## Install
 
@@ -106,7 +111,10 @@ patch).
    establish local access.
 5. When ready, the full remote dsh GUI is embedded in the main area. **Open in
    new tab** is available too.
-6. **Disconnect** stops the remote dsh and closes the tunnel. The live log is
+6. Use **VS Code / Terminal / File** in the top bar: VS Code opens the remote
+   folder already connected over Remote-SSH or Remote-WSL, Windows Terminal
+   opens a remote shell, and WSL folders open in Explorer.
+7. **Disconnect** stops the remote dsh and closes the tunnel. The live log is
    available on the progress/error view and from the **Log** button once ready.
 
 ### Adding an SSH host
@@ -183,6 +191,7 @@ dsh-remote-anywhere/
   lib/ssh.js            # ssh2 transport
   lib/wsl.js            # wsl.exe + UNC transport
   lib/sync.js           # install, config sync, workspace registration, launch
+  lib/launcher.js       # local VS Code / terminal / Explorer launch
   lib/routes.js         # local HTTP API
   lib/tools.js          # agent tools
   lib/client.js         # browser half (no build step)
@@ -208,6 +217,11 @@ dsh-remote-anywhere/
   local configuration.
 - **The local API is loopback-only.** Opening the GUI through a reverse proxy or
   public hostname returns 403 for Remote Anywhere endpoints.
+- **VS Code Remote-SSH and non-22 ports.** The CLI authority can express a
+  host/user, but a custom port needs a `Host` block in `~/.ssh/config`; the
+  plugin explains this instead of silently connecting to the wrong port.
+- **Windows Explorer cannot browse SSH.** For SSH targets use the **VS Code**
+  action; its Explorer is the remote file tree.
 
 ## License
 
