@@ -43,7 +43,7 @@
 ### 从源码安装（开发/本地）
 
 ```bash
-git clone git@github.com:leafix-p/dsh-remote-anywhere.git
+git clone https://github.com/leafix-p/dsh-remote-anywhere.git
 cd dsh-remote-anywhere
 node scripts/install.mjs
 ```
@@ -189,4 +189,5 @@ dsh-remote-anywhere/
 ## License
 
 MIT
+
 
