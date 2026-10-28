@@ -1,6 +1,12 @@
 # DSH Remote Anywhere
 
-**SSH / WSL remote development for DeepSeek Harness.**
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![node](https://img.shields.io/badge/node-%3E%3D22-brightgreen)]()
+[![DSH](https://img.shields.io/badge/DSH-%3E%3D0.2.1--rc.2-blue)]()
+
+**SSH / WSL remote development for DeepSeek Harness.**<br>
+**简体中文** · [English](README.en.md)
+
 把 SSH 主机或本机 WSL 发行版当作「远端开发机」：在那边安装并运行一份完整的 dsh，
 本地窗口通过 loopback 端口转发显示它的界面，并把模型、凭据、插件、技能和提示词同步过去。
 
@@ -13,6 +19,14 @@
 > 想「本地对话 + 远端文件/命令」时，用现有的「远程工作区」面板（dsh-ssh-workspace）更合适：
 > 那条路的会话和上下文都在本地。本插件是另一种模式——**会话、文件、命令都在远端**，
 > 本地窗口只是把远端界面显示出来。
+
+### 一句话选型
+
+| 场景 | 推荐 |
+| --- | --- |
+| 远端有完整工具链 / GPU / 模型环境，希望 agent 和会话都在远端 | **本插件** |
+| 只想让本地 agent 读写远端文件、跑远端命令，对话留在本地 | dsh-ssh-workspace |
+| Windows 上不想给 WSL 装 sshd，直接把 WSL 当开发机 | **本插件** |
 
 ## 功能
 
