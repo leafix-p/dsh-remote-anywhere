@@ -1,0 +1,20 @@
+# Dependencies and build output
+node_modules/
+dist/
+coverage/
+
+# Local logs and editor state
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local secrets / environment
+.env
+.env.*
+!.env.example
+
+# Local screenshots (repo screenshots must use demo data)
+docs/*.png
+previews/

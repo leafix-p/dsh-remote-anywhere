@@ -1,0 +1,72 @@
+{
+  "name": "dsh-remote-anywhere",
+  "version": "0.1.0",
+  "description": "SSH and WSL remote development for DeepSeek Harness: install and run dsh on the remote host, sync model / plugin / skill configuration, and embed the remote GUI in the local window.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-workspace"
+      ],
+      "platform": "web"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "*"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    }
+  },
+  "files": [
+    "lib/",
+    "scripts/",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leafix-p/dsh-remote-anywhere.git"
+  },
+  "homepage": "https://github.com/leafix-p/dsh-remote-anywhere#readme",
+  "bugs": {
+    "url": "https://github.com/leafix-p/dsh-remote-anywhere/issues"
+  },
+  "author": "leafix-p",
+  "license": "MIT",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "ssh",
+    "wsl",
+    "remote-development",
+    "vscode-remote",
+    "ai-coding-agent"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

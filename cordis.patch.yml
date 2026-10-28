@@ -1,0 +1,16 @@
+# dsh-remote-anywhere bundle patch.
+#
+# Inserted as a profile bundle layer: the host plugin below runs inside the
+# dsh process, exposes the Remote Anywhere HTTP API, and serves its browser
+# half through the ordinary client-module scan.
+- insert:
+    - id: remote-anywhere
+      name: 'dsh-remote-anywhere'
+      config:
+        announceToAgent: true
+        sync:
+          credentials: true
+          plugins: true
+          skills: true
+          prompts: true
+
