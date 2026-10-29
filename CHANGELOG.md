@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.5 — 2026-10-29
+
+- Add **挂载为工作区** to the connect dialog (SSH): mounts the selected remote
+  directory as a local workspace without starting a remote dsh, then shows the
+  resulting `ssh://` path.
+- Add a global **断线后自动重连** option (default on), in both the connect and
+  settings dialogs. A failed workspace probe retries with 10s / 30s / 60s
+  backoff (at most three attempts); each retry also calls the idempotent mount
+  endpoint so the embedded engine re-acquires its pooled connection.
+- The hover card gains a **重试** button and reports the automatic reconnect
+  attempt; turning the option off leaves only manual retries.
+
 ## 0.2.4 — 2026-10-29
 
 - Vendor the `dsh-ssh-workspace` host half (MIT) under `vendor/ssh-workspace/`.
