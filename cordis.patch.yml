@@ -8,6 +8,10 @@
       name: 'dsh-remote-anywhere'
       config:
         announceToAgent: true
+        # Sidebar status dots and the hover card for ssh:// workspaces. Set
+        # enabled: false to leave those rows entirely to dsh-ssh-workspace.
+        workspaceStatus:
+          enabled: true
         sync:
           credentials: true
           plugins: true

@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.2.3 — 2026-10-29
+
+- Add live status to `ssh://` workspace rows in the sidebar: a green dot when
+  the probe succeeds, a spinner while connecting, a red dot on failure, and a
+  dim dot for a detached workspace.
+- Add a hover card on those rows with the VS Code Remote Explorer fields —
+  project name, device, connection type, address and directory — plus the
+  recent probe log (connect time, handshake, directory check, device name,
+  errors) and the last-checked time.
+- Probe on page load, row hover and row click, with a 45s freshness window and
+  two concurrent probes at most.
+- Fix the badge stacking into a column: the title lives in a vertical block, so
+  the badge now anchors after that block instead of inside it, and stray
+  badges from earlier insertions are removed.
+
 ## 0.2.2 — 2026-10-29
 
 - Fix `ssh://` workspace sidebar terminals showing a blank shell with no input

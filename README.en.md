@@ -48,6 +48,7 @@ interface and reached through an SSH tunnel or WSL localhost forwarding.
 | Embedded GUI | SSH: ssh2 `forwardOut` tunnel; WSL2: localhost forwarding; the remote page is embedded in the local window |
 | Live log | Progress and error views show a live, copyable log with launch tokens masked |
 | Workspace terminal | `ssh://` workspace sidebar terminals run through a local SSH PTY (system `ssh`) so input and output work; set `terminalMode: 'remote'` to use the native remote PTY instead |
+| Workspace status | `ssh://` rows end with a live dot (spinner while connecting, green when reachable, red on failure, dim when detached); hover for device, connection, address, directory and the recent probe log — probed on page load, hover and click |
 | Local launch | Open a target directly from its card in VS Code, a terminal, or Explorer (remote home by default); the ready connection bar offers the same actions for the chosen workspace |
 | Host editor | Add / edit / delete SSH hosts; passwords and passphrases are AES-256-GCM encrypted under `$DSH_HOME/dsh-ssh.key` |
 | Agent tools | `remote_anywhere_targets`, `remote_anywhere_connect`, `remote_anywhere_status`, `remote_anywhere_disconnect` |
