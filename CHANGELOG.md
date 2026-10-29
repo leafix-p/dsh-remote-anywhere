@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.2.7 — 2026-10-29
+
+- **Fix a fatal `dsh web` crash on SSH authentication failure.** ssh2 emits a
+  second `error` after the handshake rejects; `SshTransport` listened with
+  `once('error')`, so the second event had no listener and killed the whole
+  dsh process (`fatal uncaught exception: All configured authentication
+  methods failed`). The listener now stays attached for the life of the
+  client and records later errors instead.
+- **Fix a connect that appeared to hang after "插件同步完成".** Skill trees were
+  uploaded one file per SFTP round trip with no timeout or progress; a single
+  stalled write blocked the pipeline forever. The copy now uses six parallel
+  uploads, logs every 50 files, bounds each write (20s) and the whole tree
+  (120s), and turns a timeout into a warning so the connect continues.
+- Skip auto-probing remote workspaces until the detached list has loaded, so a
+  deliberately disabled workspace is not probed (and cannot produce a
+  needless authentication failure) on the first poll.
+
 ## 0.2.6 — 2026-10-29
 
 - **`@` references now work in remote workspaces.** DSH's `ctx.fileReferences`
