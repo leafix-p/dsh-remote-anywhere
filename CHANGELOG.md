@@ -20,6 +20,20 @@
   the adaptive chooser resolves to `native` on an attended Windows/macOS host,
   and an OS chooser can neither list remote directories nor be driven by a
   plugin. The bundle patch documents how to restore the system dialog.
+- **The workspace path is now the primary one in Remote Explorer.** A target
+  card's main action is 添加为工作区 — the directory becomes an `ssh://`
+  workspace, the Session runs locally and every file, search, command and
+  terminal tool acts on the remote host. Starting a full remote dsh moved to a
+  secondary 在远端窗口中打开 button, so the plugin no longer reads as
+  "remote desktop" by default.
+- **Only hosts the picker can authenticate are offered.** A `~/.ssh/config`
+  entry with neither a saved credential nor a readable key falls back to
+  ssh-agent, which failed with ssh2's `Failed to retrieve identities from
+  agent` on a machine without one. Those hosts stay in the Remote Explorer
+  panel for a remote-dsh connection. A machine reached under two aliases (an IP
+  from the config plus the saved host) collapses to one row, listing failures
+  are translated into what to change, and the device root carries a
+  local-disk row so the browser has a way back.
 - New config: `directoryPicker.enabled` and `directoryPicker.localDevices`.
 
 ## 0.2.7 — 2026-10-29
