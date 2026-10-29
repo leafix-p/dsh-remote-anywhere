@@ -3,7 +3,20 @@
 # Inserted as a profile bundle layer: the host plugin below runs inside the
 # dsh process, exposes the Remote Anywhere HTTP API, and serves its browser
 # half through the ordinary client-module scan.
+
+# Pin the in-app directory browser. The adaptive chooser resolves to `native`
+# on an attended Windows/macOS host, and a native OS dialog can neither list
+# remote directories nor be driven by this plugin. The `browse` pair is the
+# interaction stage that "Add workspace" uses for both local and remote
+# directories; pinning it (the documented overlay override) keeps one dialog.
+- id: directory-picker
+  disabled: true
+
 - insert:
+    - id: remote-anywhere-directory-picker
+      name: '@deepseek-ai/dsh-host-directory-picker-browse'
+    - id: remote-anywhere-directory-picker-surface
+      name: '@deepseek-ai/dsh-client-ui-directory-picker-browse'
     - id: remote-anywhere
       name: 'dsh-remote-anywhere'
       config:
@@ -20,6 +33,11 @@
         # DSH's local-only file index.
         remoteReferences:
           enabled: true
+        # SSH devices inside the Add-workspace directory browser.
+        directoryPicker:
+          enabled: true
+          # Also list devices in the local HOME level of that browser.
+          localDevices: true
         sync:
           credentials: true
           plugins: true

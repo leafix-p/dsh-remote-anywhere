@@ -52,6 +52,7 @@ interface and reached through an SSH tunnel or WSL localhost forwarding.
 | Embedded remote workspace | Ships the `dsh-ssh-workspace` host half (vendored, MIT): `ssh://` mounting, file access, commands and terminals come from this plugin — the `dsh-ssh-workspace` bundle no longer has to be installed or enabled |
 | Mount and auto-reconnect | The connect dialog can **mount a remote directory as a workspace** without starting a remote dsh; **auto-reconnect** (on by default) retries a dropped workspace with 10s / 30s / 60s backoff (at most three times), and the hover card has a manual **retry** button |
 | Remote file references | Typing `@` in an `ssh://` workspace Session lists the remote files: bare `@` shows the workspace root, `@src/` drills into a subdirectory, typing filters; the chip, open-file action and agent reads all stay remote |
+| One add-workspace dialog | "Add workspace" is a single entry point where local directories and remote devices share one browser: the local home level opens with a `远程设备（N）` row, the device root lists your SSH hosts, and each host's tree is browsable level by level (with a `~ 主目录` shortcut). Pressing 打开 on a remote directory creates the `ssh://` workspace directly |
 | Local launch | Open a target directly from its card in VS Code, a terminal, or Explorer (remote home by default); the ready connection bar offers the same actions for the chosen workspace |
 | Host editor | Add / edit / delete SSH hosts; passwords and passphrases are AES-256-GCM encrypted under `$DSH_HOME/dsh-ssh.key` |
 | Agent tools | `remote_anywhere_targets`, `remote_anywhere_connect`, `remote_anywhere_status`, `remote_anywhere_disconnect` |
@@ -122,6 +123,28 @@ patch).
    are available directly on each target card (remote home by default).
 7. **Disconnect** stops the remote dsh and closes the tunnel. The live log is
    available on the progress/error view and from the **Log** button once ready.
+
+### Adding a workspace (local or remote)
+
+The "Add workspace" button in the sidebar's workspace header is the only entry
+point, and both worlds live in the same dialog:
+
+1. Click "Add workspace". The browser opens on your local home directory.
+2. The first row is **远程设备（N）** — the configured SSH hosts (`dsh-ssh.json`
+   and `~/.ssh/config`).
+3. Pick a host to land on its filesystem root, where the **~ 主目录** row jumps
+   straight to the remote home directory; keep clicking to descend.
+4. Breadcrumbs stay clickable: `远程设备 > host > home > user > project`. Click
+   the leftmost crumb to switch hosts from any depth.
+5. Press 打开 to create the `ssh://` workspace for the current remote
+   directory. Its root is mounted at the same moment, so the first turn can
+   already read and write.
+
+The plugin replaces `@deepseek-ai/dsh-host-directory-picker-auto` with the
+pinned `browse` interaction (see the bundle's `cordis.patch.yml`): an OS file
+dialog cannot list remote directories and cannot be driven by a plugin. Remove
+that `directory-picker` disable statement to get the system dialog back — the
+remote-devices row disappears with it.
 
 ### Adding an SSH host
 

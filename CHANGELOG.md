@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.3.0 — 2026-10-29
+
+- **One "Add workspace" dialog for local and remote directories.** DSH's
+  workspace picker is the `browse` face of `ctx.directoryPicker`; this release
+  teaches that seam the `ssh://` grammar instead of shipping a second picker.
+  The local HOME level gains a `远程设备（N）` row, the device root lists the
+  configured SSH hosts, and `ssh://alias/` lists that host's filesystem over
+  SFTP with a `~ 主目录` shortcut and clickable breadcrumbs
+  (`远程设备 > 主机 > home > 用户 > 项目`). Picking a remote directory and
+  pressing 打开 creates the `ssh://` workspace through the ordinary
+  `workspaces.create` path — no separate mount dialog.
+- **`ssh://` workspaces mount their root when created.** A workspace made from
+  the browser previously registered fine but stayed outside every served root
+  until the next restart's re-mount sweep, so its first writes were fenced off
+  with `FS_OUTSIDE_WORKSPACE`. `workspaces.create` now mounts the remote root
+  first, for both the browser and any other caller.
+- **Pin the directory picker to the `browse` interaction** in the bundle patch:
+  the adaptive chooser resolves to `native` on an attended Windows/macOS host,
+  and an OS chooser can neither list remote directories nor be driven by a
+  plugin. The bundle patch documents how to restore the system dialog.
+- New config: `directoryPicker.enabled` and `directoryPicker.localDevices`.
+
 ## 0.2.7 — 2026-10-29
 
 - **Fix a fatal `dsh web` crash on SSH authentication failure.** ssh2 emits a
