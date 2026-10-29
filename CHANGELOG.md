@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.2.4 — 2026-10-29
+
+- Vendor the `dsh-ssh-workspace` host half (MIT) under `vendor/ssh-workspace/`.
+  remote-anywhere now owns the `ssh://` seams itself: the remote fs router,
+  shell/subprocess/terminal patches, workspace mount routes and the
+  `ssh_workspace_*` tools all come from this plugin.
+- **No longer requires the `dsh-ssh-workspace` bundle to load**: the profile
+  only enables `dsh-remote-anywhere`, so a plugin-market operation that drops
+  another bundle can no longer take `ssh://` workspaces (and new sessions) down
+  with it.
+- Keep the `dsh-ssh-workspace` package as a dependency only for `ssh2` and the
+  shared host store; its client panel is not needed.
+- Document `sshWorkspace.enabled` / `sshWorkspace.engine` in the bundle patch.
+
 ## 0.2.3 — 2026-10-29
 
 - Add live status to `ssh://` workspace rows in the sidebar: a green dot when

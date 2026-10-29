@@ -8,9 +8,13 @@
       name: 'dsh-remote-anywhere'
       config:
         announceToAgent: true
-        # Sidebar status dots and the hover card for ssh:// workspaces. Set
-        # enabled: false to leave those rows entirely to dsh-ssh-workspace.
+        # Sidebar status dots and the hover card for ssh:// workspaces.
         workspaceStatus:
+          enabled: true
+        # Embedded dsh-ssh-workspace host (vendor): the fs/shell/subprocess/
+        # terminal seams for ssh:// paths. The plugin no longer needs the
+        # dsh-ssh-workspace bundle to be enabled in the profile.
+        sshWorkspace:
           enabled: true
         sync:
           credentials: true
