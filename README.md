@@ -40,6 +40,7 @@
 | 插件回退 | 本地插件集在远端安装/加载失败时，自动回退到「基础插件集 + 模型配置」，不让远端 dsh 起不来 |
 | 本地嵌入 | SSH 用 ssh2 的 `forwardOut` 建一条本地随机端口隧道；WSL2 走 localhost 转发；远端 GUI 以 iframe 嵌入本地页面 |
 | 连接日志 | 连接中/失败页自动显示实时日志（步骤、环境探测、安装与同步消息，token 已脱敏），可一键复制 |
+| 工作区终端 | `ssh://` 工作区的侧栏终端通过本地 SSH PTY（系统 `ssh`）连接远端，输入/输出正常；要回到原生远端 PTY 可配置 `terminalMode: 'remote'` |
 | 本地打开 | 目标卡片可直接「VS Code / 终端 / 文件」打开（自动使用远端 home）；连接就绪后顶部也可以对当前工作区执行同样操作 |
 | 主机编辑 | 添加/编辑/删除 SSH 主机，密码与口令用 `$DSH_HOME/dsh-ssh.key` 做 AES-256-GCM 加密，与 dsh-ssh-workspace 兼容 |
 | 目录浏览 | 连接前逐级浏览远端目录（SFTP 或 WSL 9P） |
@@ -186,6 +187,7 @@ dsh-remote-anywhere/
 - **本地接口只接受 loopback 访问**：如果 DSH Web GUI 通过反向代理/公网域名打开，远程资源管理器的 API 会拒绝（403）；请在本机 `127.0.0.1` / `localhost` 打开 GUI。
 - **VS Code Remote-SSH 的非 22 端口**需要 `~/.ssh/config` 里有对应的 Host 别名（HostName / User / Port）；插件会明确提示。
 - **Windows 资源管理器不能浏览 SSH 文件**：SSH 目标请用 VS Code 打开，它的左侧就是远端资源管理器。
+- **工作区终端的 SSH 认证**：`ssh://` 工作区终端使用系统 `ssh`，需要 `~/.ssh` 里的密钥/agent 能登录该主机；密码认证的主机会在终端里提示输入密码。
 
 ## 排查
 

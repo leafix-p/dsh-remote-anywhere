@@ -47,6 +47,7 @@ interface and reached through an SSH tunnel or WSL localhost forwarding.
 | Plugin fallback | If the remote plugin install/load fails, falls back to the base plugin set plus model configuration instead of failing to boot |
 | Embedded GUI | SSH: ssh2 `forwardOut` tunnel; WSL2: localhost forwarding; the remote page is embedded in the local window |
 | Live log | Progress and error views show a live, copyable log with launch tokens masked |
+| Workspace terminal | `ssh://` workspace sidebar terminals run through a local SSH PTY (system `ssh`) so input and output work; set `terminalMode: 'remote'` to use the native remote PTY instead |
 | Local launch | Open a target directly from its card in VS Code, a terminal, or Explorer (remote home by default); the ready connection bar offers the same actions for the chosen workspace |
 | Host editor | Add / edit / delete SSH hosts; passwords and passphrases are AES-256-GCM encrypted under `$DSH_HOME/dsh-ssh.key` |
 | Agent tools | `remote_anywhere_targets`, `remote_anywhere_connect`, `remote_anywhere_status`, `remote_anywhere_disconnect` |
@@ -218,6 +219,8 @@ dsh-remote-anywhere/
   local configuration.
 - **The local API is loopback-only.** Opening the GUI through a reverse proxy or
   public hostname returns 403 for Remote Anywhere endpoints.
+- **Workspace-terminal authentication** uses the system `ssh` client, so
+  `~/.ssh` must be able to log in (key/agent, or type the password at the prompt).
 - **VS Code Remote-SSH and non-22 ports.** The CLI authority can express a
   host/user, but a custom port needs a `Host` block in `~/.ssh/config`; the
   plugin explains this instead of silently connecting to the wrong port.

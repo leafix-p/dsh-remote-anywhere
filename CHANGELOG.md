@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.2 — 2026-10-29
+
+- Fix `ssh://` workspace sidebar terminals showing a blank shell with no input
+  or output: those terminals now run through a local SSH PTY (system `ssh`),
+  which uses the same working terminal path as a local shell.
+- Add `inspectActivity()` compatibility for the terminal handles returned by
+  `@shiqyka/dsh-ssh-workspace` on dsh 0.2.1.
+- Add `terminalMode: 'remote'` to opt back into the native remote PTY.
+
 ## 0.2.1 — 2026-10-28
 
 - Add **VS Code**, **Terminal** and **File** actions directly on target cards,
