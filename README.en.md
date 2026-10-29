@@ -51,6 +51,7 @@ interface and reached through an SSH tunnel or WSL localhost forwarding.
 | Workspace status | `ssh://` rows end with a live dot (spinner while connecting, green when reachable, red on failure, dim when detached); hover for device, connection, address, directory and the recent probe log — probed on page load, hover and click |
 | Embedded remote workspace | Ships the `dsh-ssh-workspace` host half (vendored, MIT): `ssh://` mounting, file access, commands and terminals come from this plugin — the `dsh-ssh-workspace` bundle no longer has to be installed or enabled |
 | Mount and auto-reconnect | The connect dialog can **mount a remote directory as a workspace** without starting a remote dsh; **auto-reconnect** (on by default) retries a dropped workspace with 10s / 30s / 60s backoff (at most three times), and the hover card has a manual **retry** button |
+| Remote file references | Typing `@` in an `ssh://` workspace Session lists the remote files: bare `@` shows the workspace root, `@src/` drills into a subdirectory, typing filters; the chip, open-file action and agent reads all stay remote |
 | Local launch | Open a target directly from its card in VS Code, a terminal, or Explorer (remote home by default); the ready connection bar offers the same actions for the chosen workspace |
 | Host editor | Add / edit / delete SSH hosts; passwords and passphrases are AES-256-GCM encrypted under `$DSH_HOME/dsh-ssh.key` |
 | Agent tools | `remote_anywhere_targets`, `remote_anywhere_connect`, `remote_anywhere_status`, `remote_anywhere_disconnect` |

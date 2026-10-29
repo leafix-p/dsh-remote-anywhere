@@ -16,6 +16,10 @@
         # dsh-ssh-workspace bundle to be enabled in the profile.
         sshWorkspace:
           enabled: true
+        # `@` file references for ssh:// Sessions; set enabled: false to keep
+        # DSH's local-only file index.
+        remoteReferences:
+          enabled: true
         sync:
           credentials: true
           plugins: true

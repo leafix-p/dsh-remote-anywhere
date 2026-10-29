@@ -373,6 +373,10 @@ export function apply (ctx, config = {}) {
       'ssh-workspace: routes',
     )
   })
+
+  // Embedded consumers (remote-anywhere's @ reference source) need the pooled
+  // connection engine; return it instead of keeping it private.
+  return { engine, router }
 }
 
 export { SshWorkspaceEngine, RemoteFileSystem }

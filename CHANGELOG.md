@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.6 — 2026-10-29
+
+- **`@` references now work in remote workspaces.** DSH's `ctx.fileReferences`
+  indexes the local Session cwd, so a Session whose cwd is `ssh://alias/path`
+  had no candidates. The plugin wraps that service: for remote cwds it lists
+  one directory over the embedded SSH engine (root on bare `@`, drill-in on
+  `@src/`, prefix filter while typing), delegates local Sessions unchanged, and
+  caches listings for 5 seconds.
+- The vendored host now returns its connection engine so the reference source
+  can reuse the pooled SSH connection instead of opening its own.
+
 ## 0.2.5 — 2026-10-29
 
 - Add **挂载为工作区** to the connect dialog (SSH): mounts the selected remote
