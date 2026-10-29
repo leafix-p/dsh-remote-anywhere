@@ -205,6 +205,7 @@ dsh-remote-anywhere/
 - **VS Code Remote-SSH 的非 22 端口**需要 `~/.ssh/config` 里有对应的 Host 别名（HostName / User / Port）；插件会明确提示。
 - **Windows 资源管理器不能浏览 SSH 文件**：SSH 目标请用 VS Code 打开，它的左侧就是远端资源管理器。
 - **工作区终端的 SSH 认证**：`ssh://` 工作区终端使用系统 `ssh`，需要 `~/.ssh` 里的密钥/agent 能登录该主机；密码认证的主机会在终端里提示输入密码。
+- **`run_code`（PTC）不支持远程工作区**：它在本地起一个 node 进程并在其中执行用户代码，而 `ssh://` 的远端子进程桥只放行 `git` 与 `ripgrep`（搜索和变更追踪用）。在远程工作区里请改用 **bash / pwsh** 执行命令（workdir 落在远端时直接在远端运行）、**read / write / edit** 读写文件、**glob / grep** 搜索。插件会把这条拒绝翻译成上面的指引，不会静默降级到本地执行。
 
 ## 排查
 

@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.3.1 — 2026-10-29
+
+- **`run_code` now fails with an instruction instead of a whitelist message.**
+  The PTC runtime spawns a local `node` process with the Session workspace as
+  cwd; in an `ssh://` workspace the remote subprocess bridge refuses it with
+  "only git and ripgrep (rg) are supported over the remote subprocess bridge".
+  That message names the rule but not the way out, so an agent burned a turn
+  discovering it. The refusal is now rewritten to point at bash / pwsh (which
+  do run remotely), read / write / edit (SFTP) and glob / grep (remote
+  ripgrep), and to say that `run_code` itself is unsupported here. The
+  whitelist is unchanged: a local node process cannot execute against a remote
+  cwd, and silently redirecting it to a local directory would make user code
+  read the wrong files.
+- The plugin's agent guidance and the README both state the tool choice for
+  remote workspaces up front.
+
 ## 0.3.0 — 2026-10-29
 
 - **One "Add workspace" dialog for local and remote directories.** DSH's
